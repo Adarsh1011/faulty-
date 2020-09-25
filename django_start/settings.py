@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'predictor.apps.PredictorConfig',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     "crispy_forms",
