@@ -2,23 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from sklearn.base import BaseEstimator, TransformerMixin
-import numpy as np
-import math
-import pandas as pd
-
-class Custom_transform(BaseEstimator, TransformerMixin):
-    def __init__(self):
-        pass
-    def fit(self, X_, y=None):
-        return self
-    def transform(self, X_, y=None):
-        X = X_.copy().astype(float)
-        train_median = dict(X.median())
-        X = X.fillna(train_median)
-        for column in X.columns:
-            X[column] = X[column].map(lambda i: np.log(i) if i > 0 else 0)
-        return X
 
 def main():
     """Run administrative tasks."""
@@ -36,4 +19,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    Custom_transform()
