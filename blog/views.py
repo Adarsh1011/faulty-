@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
-from django.views.generic import (ListView, DetailView, CreateView,
-                                  UpdateView, DeleteView
-)
+from django.views.generic import (ListView, DetailView, CreateView,UpdateView, DeleteView)
+
 
 def home(request):
     context = {
@@ -20,9 +19,14 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
+class AddPostView(CreateView):
+    model = Post
+    template_name = 'blog/add_post.html'
+    fields='__all__'
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content','category']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -30,7 +34,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content','category']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
