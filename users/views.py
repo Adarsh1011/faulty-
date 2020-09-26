@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from .models import Profile
+from django.views.generic import (DetailView)
 
 def register(request):
     if request.method == 'POST':
@@ -33,6 +35,10 @@ def profile(request):
         p_form = ProfileUpdateForm(instance = request.user.profile)
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
     }
     return render(request, 'users/profile.html', context)
+
+class ProfileView(DetailView):
+    model = Profile
+    template_name = 'users/profile_view.html'
